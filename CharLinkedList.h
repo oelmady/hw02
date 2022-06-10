@@ -5,7 +5,7 @@
  *
  *  CS 15 HW 2
  *
- *  This file implements a CharLinkedList class with properties similar to std:vector using linked lists
+ *  This file contains the functions involved in implementing a CharLinkedList class with properties similar to std:vector using linked lists
  *
  */
 
@@ -26,7 +26,7 @@ public:
     CharLinkedList &operator=(const CharLinkedList &other);
 
     bool isEmpty() const; //
-    void clear();//
+    void clear(); //
     int size() const; //
     char first() const; //
     char last() const;//
@@ -36,7 +36,7 @@ public:
 
     void pushAtBack(char c); //
     void pushAtFront(char c);//
-    void insertAt(char c, int index);
+    void insertAt(char c, int index); //
     void insertInOrder(char c);
     void popFromFront();
     void popFromBack();
@@ -49,13 +49,24 @@ private:
     struct Node 
     {
         char data;
-        Node* next;
+        Node* next = nullptr;
+        //constructors 
+        Node(char c)
+        {
+            data = c;
+            next = nullptr;
+        }
+        Node(char c, Node* node)
+        {
+            data = c;
+            next = node;
+        }
     };
-    Node *head;
-    Node *tail;
+    Node *front; // a  pointer to the node at the front of the list
+    Node *back; // a pointer to the node at the back of the list
 
     void destroy(Node *node);
-    void copyRec(Node *node);
+    Node * copyRec(Node *node);
 };
 
 #endif

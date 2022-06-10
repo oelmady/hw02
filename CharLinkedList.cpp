@@ -5,7 +5,7 @@
  *
  *  CS 15 HW 2
  *
- *  This file implements a CharLinkedList class with properties similar to std:vector using linked lists
+ *  This file defines the functions involved in implementing a CharLinkedList class with properties similar to std:vector using linked lists. This class only accepts char type data as input for the list. 
  *
  */
 
@@ -16,39 +16,39 @@ using namespace std;
 //The default constructor takes no parameters and initializes an empty list with no nodes.
 CharLinkedList::CharLinkedList()
 {
-    head = nullptr;
-    tail = nullptr;
+    front  = nullptr;
+    back   = nullptr;
     length = 0;
 }
 
-//helper function for destructor that recursively frees node data of a linkedlist, and returns nothing
+//helper function for destructor that recursively frees node data of each node.
 void CharLinkedList::destroy(Node *node) 
 {
     if (node == nullptr) return;
-    cout << "destroying: " << &node << endl;
+
     Node * next = node->next;
     free(node);
 
     if (next == nullptr) return;
     else 
     {
-        cout << "next up is: " << &next << endl;
         destroy(next);
     }
 }
-//Define a destructor that destroys/deletes/recycles all heap-allocated data in the cur- rent list. It has no parameters and returns nothing. This function uses a private recursive helper function destry(Node *head).
+//Define a destructor that destroys/deletes/recycles all heap-allocated data in the cur- rent list. It has no parameters and returns nothing. This function uses a private recursive helper function destroy(Node *front).
 CharLinkedList::~CharLinkedList()
 {
-    if (head != nullptr)
+    if (!isEmpty())
     {
-        destroy(head);
+        destroy(front);
     }
 }
 //A size function that takes no parameters and returns an integer value that is the number of characters in the list. The size of a list is 0 if and only if it isEmpty.
 int CharLinkedList::size() const
 {  
+    return length;
     int result = 0;
-    Node * temp = head;
+    Node * temp = front;
     while (temp != nullptr) 
     {
         result++;
@@ -59,78 +59,85 @@ int CharLinkedList::size() const
 //An isEmpty function that takes no parameters and returns a boolean value that is true if this specific instance of the class is empty (has no characters) and false otherwise.
 bool CharLinkedList::isEmpty() const
 {
-    return (head == nullptr);
+    return (front == nullptr);
 }
-//The second constructor takes in a single character as a parameter and creates a one element list consisting of that character.
+//this constructor takes in a single character as a parameter and creates a one element list consisting of that character. 
 CharLinkedList::CharLinkedList(char c)
 {
-    head = new Node;
-    tail = new Node;
-    head->data = c;
-    head->next = tail;
+    front  = new Node{c};
+    back   = front;
     length = 1;
 }
 //A first function that takes no parameters and returns the first element (char) in the list. If the list is empty it should throw a C++ std::runtime_error exception with the message “cannot get first of empty LinkedList”.
 char CharLinkedList::first() const
 {
-    if (head == nullptr)
+    if (isEmpty())
     {
         throw std::runtime_error("cannot get first of empty LinkedList");
     }
-    return head->data;
+    return front->data;
 }
-
-void CharLinkedList::copyRec(Node *node)
+// a recursive constructor that takes in a pointer to a head node and creates a deep copy of all nodes in the list
+Node * CharLinkedList::copyRec(Node *node)
 {
-    return;
-};
+    if (node == nullptr) return nullptr;
+
+    Node * newNode = new Node{node->data};
+    newNode->next = copyRec(node->next);
+
+    return newNode;
+}
 //A copy constructor for the class that makes a deep copy of a given instance.
 CharLinkedList::CharLinkedList(const CharLinkedList &other)
 {
-    if (other.head == nullptr) 
+    // if (this == other) return;
+    if (other.length == 0) 
     {
-        this->head = nullptr;
-        this->tail = nullptr;
-        this->length = 0;
+        this->clear();
     }
-    // create new nodes for each of the nodes of the &other list
-    // and add them to the head of the list
-
+    this->length = other.length;
+    this->front = copyRec(other.front);
+    Node * temp = this->front;
+    while (temp->next != nullptr) 
+    {
+        temp = temp->next;
+    }
+    this->back = temp;
 }
 //A clear function that takes no parameters and has a void return type. It makes the instance into an empty list using the recurisve destroy(*node) function.
 void CharLinkedList::clear()
 {
-    if (head != nullptr)
+    if (!isEmpty())
     {
-        destroy(head);
+        destroy(front);
     }
 
-    head   =  nullptr;
-    tail   = nullptr;
+    front  = nullptr;
+    back   = nullptr;
     length = 0;
 }
 //A last function that takes no parameters and returns the last element (char) in the list. If the list is empty it throws a C++ std::runtime_error exception with the message “cannot get last of empty LinkedList”.
 char CharLinkedList::last() const
 {
-    if (tail == nullptr) 
+    if (isEmpty()) 
     {
-        throw std::runtime_error("Cannot get last of linked list");
+        throw std::runtime_error("cannot get last of empty linked list");
     }
-    return tail->data;
+    return back->data;
 }
 //A pushAtBack function that takes an element (char) and has a void return type. It inserts the given new element after the end of the existing elements of the list.
 void CharLinkedList::pushAtBack(char c)
 {
     Node * node = new Node{c, nullptr};
-    tail->next = node;
-    tail = node;
+    back->next = node;
+    back = node;
     length++;
 }
 //A pushAtFront function that takes an element (char) and has a void return type. It inserts the given new element in front of the existing elements of the list.
 void CharLinkedList::pushAtFront(char c)
 {
-    Node * node = new Node{c, head};
-    head = node;
+    Node * node = new Node{c, front};
+    front = node;
     length++;
 }
 
@@ -142,10 +149,11 @@ char CharLinkedList::elementAt(int index) const
         string msg = "index" + to_string(index) + " is not in range [0.." + to_string(size()) + ")";
         throw std::range_error(msg);
     }
-    if (index == 0) return head->data;
-    else if (index == size()) return tail->data;
 
-    Node * nextNode = head;
+    if (index == 0) return first();
+    else if (index == size()) return last();
+
+    Node * nextNode = front;
     for (int i = 0; i < index; i++) 
     {
         nextNode = nextNode->next;
@@ -158,7 +166,7 @@ string CharLinkedList::toString() const
 {
     string msg = "[CharLinkedList of size " + to_string(length);
     msg +=  " <<";
-    Node * node = head;
+    Node * node = front;
     char data;
     for (int i = 0; i < length; i++)
     {
@@ -169,3 +177,35 @@ string CharLinkedList::toString() const
     msg += ">>]";
     return msg;
 }
+
+//An insertAt function that takes an element (char) and an integer index as parameters and has a void return type. It inserts the new element at the specified index. The new element is then in the index-th position. If the index is out of range it should throw a C++ std::range_error exception with the message “index (IDX) not in range [0..SIZE]” where IDX is the index that was given and SIZE is the size of the list.
+void CharLinkedList::insertAt(char c, int index)
+{
+    if (index < 0 || index > size())
+    {
+        string msg = "index" + to_string(index) + " is not in range [0.." + to_string(size()) + "]";
+        throw std::range_error(msg);
+    }
+
+    if (index == size()) 
+    {
+        pushAtBack(c);
+    }
+    else if (index == 0)
+    {
+        pushAtFront(c);
+    }
+    else
+    {
+        Node * newNode = new Node{c};
+        Node * prev = front;
+        for (int i = 1; i < index; i++)
+        {
+            prev = prev->next;
+        }
+        newNode->next = prev->next;
+        prev->next = newNode;
+        length++;
+    }
+}
+
