@@ -78,7 +78,7 @@ char CharLinkedList::first() const
     return front->data;
 }
 // a recursive constructor that takes in a pointer to a head node and creates a deep copy of all nodes in the list
-Node * CharLinkedList::copyRec(Node *node)
+CharLinkedList::Node * CharLinkedList::copyRec(Node *node)
 {
     if (node == nullptr) return nullptr;
 

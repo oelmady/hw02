@@ -1,7 +1,7 @@
 /*
  *  CharLinkedList.h
- *  YOUR NAME HERE
- *  DATE CREATED
+ *  Omar Elmady
+ *  June 8
  *
  *  CS 15 HW 2
  *
