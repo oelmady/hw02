@@ -105,13 +105,7 @@ CharLinkedList::CharLinkedList(const CharLinkedList &other)
     this->length = other.length;
 
     this->front = copyRec(other.front);
-    Node * temp = this->front;
-
-    while (temp->next != nullptr) 
-    {
-        temp = temp->next;
-    }
-    this->back = temp;
+    this->back  = getBack(this->front);
 }
 
 //A clear function that takes no parameters and has a void return type. It makes the instance into an empty list using the recurisve destroy(*node) function.
@@ -266,13 +260,7 @@ void CharLinkedList::popFromBack()
     }
     free(back);
     length--;
-
-    Node * newBack = front;
-    while (newBack->next != nullptr)
-    {
-        newBack = newBack->next;
-    }
-    back = newBack;
+    back = getBack(front);
 }
 
 //A removeAt function that takes an integer index and has void return type. It removes the element at the specified index. If the index is out of range it should throw a C++ std::range_error exception with message “index (IDX) not in range [0..SIZE)” where IDX is the input index and SIZE is the size of the list.
@@ -343,12 +331,7 @@ void CharLinkedList::concatenate(CharLinkedList *other)
         front = back = node;
     }
     this->back->next = copyRec(other->front);
-    Node * temp = this->front;
-    while (temp->next != nullptr) 
-    {
-        temp = temp->next;
-    }
-    this->back = temp;   
+    this->back = getBack(this->back);
     this->length += other->length;
 }
 
@@ -372,14 +355,16 @@ CharLinkedList::CharLinkedList(char arr[], int size)
 CharLinkedList& CharLinkedList::operator=(const CharLinkedList &other)
 {
     if (this->length > 0) this->clear();
-
     this->length = other.length;
     this->front = copyRec(other.front);
-
-    Node * temp = this->front;
-    while (temp->next != nullptr) 
+    this->back  = getBack(this->front);
+}
+// returns a pointer to the node at the back of the list
+CharLinkedList::Node* CharLinkedList::getBack(Node *node)
+{
+    while (node->next != nullptr)
     {
-        temp = temp->next;
+        node = node->next;
     }
-    this->back = temp;
+    return node;
 }

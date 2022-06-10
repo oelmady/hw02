@@ -67,6 +67,7 @@ private:
 
     void destroy(Node *node);
     Node * copyRec(Node *node); 
+    Node * getBack(Node *node); 
 };
 
 #endif
