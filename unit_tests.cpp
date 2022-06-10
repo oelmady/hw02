@@ -15,18 +15,18 @@ using namespace std;
 
 int main() {
     cout << "bismillah..." << endl;
-    CharLinkedList b('b');
-    CharLinkedList * p = &b;
-    b.pushAtFront('a');
-    b.pushAtBack('c');
-    b.concatenate(p);
-    cout << b.toString() << endl;
+    CharLinkedList wow("wow", 3);
+    CharLinkedList amazing("amazing", 7);
+    
+    wow = amazing;
+    CharLinkedList a;
+    // a = amazing;
+    cout << wow.toString() << endl;
+    cout << a.toString() << endl;
 
     try 
     {
-        CharLinkedList a;
-        a.concatenate(p);
-        cout << a.toString() << endl;
+        
     } 
     catch (const runtime_error &e) 
     {

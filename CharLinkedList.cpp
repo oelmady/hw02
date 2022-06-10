@@ -83,7 +83,7 @@ char CharLinkedList::first() const
     return front->data;
 }
 
-// a recursive constructor that takes in a pointer to a head node and creates a deep copy of all nodes in the list
+// a recursive constructor that takes  a pointer to a head node and creates a deep copy of all nodes in the list
 CharLinkedList::Node* CharLinkedList::copyRec(Node *node)
 {
     if (node == nullptr) return nullptr;
@@ -103,8 +103,10 @@ CharLinkedList::CharLinkedList(const CharLinkedList &other)
         this->clear();
     }
     this->length = other.length;
+
     this->front = copyRec(other.front);
     Node * temp = this->front;
+
     while (temp->next != nullptr) 
     {
         temp = temp->next;
@@ -348,4 +350,36 @@ void CharLinkedList::concatenate(CharLinkedList *other)
     }
     this->back = temp;   
     this->length += other->length;
+}
+
+//This constructor takes an array of characters and the integer length of that array of characters as parameters. It will create a list containing the characters in the array. 
+// incorrect result if size != length(arr[])
+CharLinkedList::CharLinkedList(char arr[], int size)
+{
+    length = size;
+    front = new Node{arr[0]};
+    Node * prev = front;
+    for (int i = 1; i < size; i++)
+    {
+        Node * node = new Node{arr[i]};
+        prev->next = node;
+        prev = node;
+    }
+    prev->next = nullptr;
+    back = prev;
+}
+//Define an assignment operator for the class that recycles the storage associated with the instance on the left of the assignment and makes a deep copy of the instance on the right hand side into the instance on the left hand side.
+CharLinkedList& CharLinkedList::operator=(const CharLinkedList &other)
+{
+    if (this->length > 0) this->clear();
+
+    this->length = other.length;
+    this->front = copyRec(other.front);
+
+    Node * temp = this->front;
+    while (temp->next != nullptr) 
+    {
+        temp = temp->next;
+    }
+    this->back = temp;
 }

@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Thu Jun  9 20:17:20 2022
+# Make data base, printed on Fri Jun 10 00:44:56 2022
 
 # Variables
 
@@ -40,11 +40,11 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/z7/m_vr990538q2p0kk1n87k1ph0000gn/T/vscode-ipc-9587d67b-17f7-4c7d-94ec-3dc2d3f98256.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/z7/m_vr990538q2p0kk1n87k1ph0000gn/T/vscode-ipc-4c53f78c-d01c-4c19-968a-02dd7a58d37c.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+PATH = /usr/bin:/bin:/usr/sbin:/sbin
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -150,9 +150,9 @@ VSCODE_PID = 670
 
 # Directories
 
-# . (device 16777220, inode 41932358): 12 files, no impossibilities.
+# . (device 16777220, inode 41932358): 13 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -252,7 +252,7 @@ CharLinkedList.o: CharLinkedList.cpp CharLinkedList.h
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Jun  9 20:17:20 2022
+# Finished Make data base on Fri Jun 10 00:44:56 2022
 
  
 make: *** No rule to make target `all'.  Stop.

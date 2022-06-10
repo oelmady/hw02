@@ -18,25 +18,25 @@ using namespace std;
 
 class CharLinkedList {
 public:
-    CharLinkedList(); //
-    CharLinkedList(char c); //
+    CharLinkedList(); 
+    CharLinkedList(char c); 
     CharLinkedList(char arr[], int size);
     CharLinkedList(const CharLinkedList &other);
     ~CharLinkedList();
     CharLinkedList &operator=(const CharLinkedList &other);
 
-    bool isEmpty() const; //
-    void clear(); //
-    int size() const; //
-    char first() const; //
-    char last() const;//
+    bool isEmpty() const; 
+    void clear(); 
+    int size() const; 
+    char first() const; 
+    char last() const;
 
-    char elementAt(int index) const; //
-    string toString() const;//
+    char elementAt(int index) const;
+    string toString() const;
 
-    void pushAtBack(char c); //
-    void pushAtFront(char c);//
-    void insertAt(char c, int index); //
+    void pushAtBack(char c); 
+    void pushAtFront(char c);
+    void insertAt(char c, int index);
     void insertInOrder(char c);
     void popFromFront();
     void popFromBack();
@@ -65,8 +65,8 @@ private:
     Node *front; // a  pointer to the node at the front of the list
     Node *back; // a pointer to the node at the back of the list
 
-    void destroy(Node *node);//
-    Node * copyRec(Node *node); //
+    void destroy(Node *node);
+    Node * copyRec(Node *node); 
 };
 
 #endif
