@@ -65,8 +65,8 @@ private:
     Node *front; // a  pointer to the node at the front of the list
     Node *back; // a pointer to the node at the back of the list
 
-    void destroy(Node *node);
-    Node * copyRec(Node *node);
+    void destroy(Node *node);//
+    Node * copyRec(Node *node); //
 };
 
 #endif
