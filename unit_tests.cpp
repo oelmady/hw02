@@ -15,23 +15,15 @@ using namespace std;
 
 int main() {
     cout << "bismillah..." << endl;
-    CharLinkedList wow("wow", 3);
-    CharLinkedList amazing("amazing", 7);
-    
-    wow = amazing;
-    CharLinkedList a;
-    // a = amazing;
-    cout << wow.toString() << endl;
-    cout << a.toString() << endl;
+    CharLinkedList t('t');
 
-    try 
-    {
-        
-    } 
-    catch (const runtime_error &e) 
-    {
-        cerr << e.what() << endl;
-    }
+    char abby[] = "abbycat";
+    CharLinkedList ll1(abby, 7);
+    CharLinkedList ll2 = ll1;
+    cout << "testing cat" << endl;
+    t.concatenate(&ll2);
+
+    cout << "printing t: " << t.toString() << endl;
 
     cout << "alhamdulillah!" << endl;
     return 0;

@@ -1,7 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/omarelmady/Desktop/Class/cs15/hw02'
 clang++ -c -o unit_tests.o unit_tests.cpp -std=c++11 -Wall -Wextra -Wextra -Wpedantic -Wshadow
- 
 clang++ -c -o CharLinkedList.o CharLinkedList.cpp -std=c++11 -Wall -Wextra -Wextra -Wpedantic -Wshadow
 clang++ -g3 -o test_list unit_tests.o CharLinkedList.o
 make: Leaving directory `/Users/omarelmady/Desktop/Class/cs15/hw02'
